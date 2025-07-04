@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Données TVA – DeVAT</title>
+</head>
+<body>
+  <h1>TVA suisse – données mensuelles</h1>
+  <div id="output">Chargement...</div>
+  <script>
+    async function loadData() {
+      try {
+        const months = ["2023-12", "2024-01", "2024-02"];
+        const container = document.getElementById("output");
+        container.innerHTML = "";
+        for (const m of months) {
+          const r = await fetch(`data/processed/TVA-${m}.json`);
+          const d = await r.json();
+          container.innerHTML += `<pre><strong>${m}</strong> : ${d.montant_tva} CHF</pre>`;
+        }
+      } catch (e) {
+        document.getElementById("output").innerText = "Erreur chargement : " + e;
+      }
+    }
+    loadData();
+  </script>
+</body>
+</html>
