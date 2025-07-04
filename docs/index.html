@@ -21,7 +21,7 @@
 
 <script>
 async function fetchData(month) {
-  const url = `./processed/TVA-${month}.json`;
+  const url = `../processed/TVA-${month}.json`;
   try {
     const resp = await fetch(url);
     if (!resp.ok) throw new Error("404");
