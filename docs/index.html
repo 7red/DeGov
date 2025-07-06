@@ -1,52 +1,16 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html>
 <head>
   <meta charset="UTF-8">
-  <title>DeVAT – Recettes TVA mensuelles</title>
+  <title>Diagramme des flux financiers</title>
+  <style>
+    body { font-family: sans-serif; padding: 2rem; }
+    img { max-width: 100%; height: auto; border: 1px solid #ccc; }
+  </style>
 </head>
 <body>
-  <h1>Recettes TVA de la Confédération suisse</h1>
-  <table border="1">
-    <thead>
-      <tr>
-        <th>Mois</th>
-        <th>Montant TVA (CHF)</th>
-        <th>Extrait</th>
-      </tr>
-    </thead>
-    <tbody id="tva-table">
-      <tr><td colspan="3">Chargement en cours…</td></tr>
-    </tbody>
-  </table>
-
-<script>
-async function fetchData(month) {
-  const url = `./processed/TVA-${month}.json`;
-  try {
-    const resp = await fetch(url);
-    if (!resp.ok) throw new Error("404");
-    const data = await resp.json();
-    return `<tr><td>${data.mois}</td><td>${data.montant_tva}</td><td>${data.extrait.slice(0, 100)}...</td></tr>`;
-  } catch {
-    return '';
-  }
-}
-
-async function loadTVA() {
-  const table = document.getElementById("tva-table");
-  table.innerHTML = "";
-  const today = new Date();
-  const rows = [];
-  for (let i = 0; i < 12; i++) {
-    const d = new Date(today.getFullYear(), today.getMonth() - i, 1);
-    const yyyymm = d.toISOString().slice(0, 7);
-    const row = await fetchData(yyyymm);
-    if (row) rows.push(row);
-  }
-  table.innerHTML = rows.length ? rows.join("") : "<tr><td colspan='3'>Aucune donnée disponible.</td></tr>";
-}
-
-loadTVA();
-</script>
+  <h1>💧 Flux financiers entre secteurs</h1>
+  <p>Basé sur le rapport consolidé de la Confédération 2023.</p>
+  <img src="flux_financiers.svg" alt="Diagramme flux financiers">
 </body>
 </html>

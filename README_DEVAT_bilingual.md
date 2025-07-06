@@ -110,3 +110,16 @@ python ~/DeGov/prepare_ipfs_manifest.py
 cd ~/DeGov && ~/DeGov/.venv/bin/python devat_publish_all.py
 ```
 
+
+
+
+
+```mermaid
+flowchart TD
+  A\[Administration fédérale\] -->|18.4 mrd CHF| C\[Assurances sociales\]
+  A -->|3.4 mrd CHF| B\[Entreprises de la Confédération\]
+  B -->|Dividendes / Participations| A
+  C -->|Cotisations + Contributions| P\[Prestations sociales 66.2 mrd CHF\]
+  A -->|Impôts / TVA / Recettes fiscales| D\[Dépenses publiques générales\]
+```
+
