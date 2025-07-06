@@ -1,4 +1,4 @@
-# 📘 Manuel d'utilisation – DeVAT / User Manual
+# 📘 Manuel d'utilisation – DeVAT / User Manual (FR/EN)
 
 ---
 
@@ -10,7 +10,7 @@ python3 -m venv ~/DeGov/.venv && source ~/DeGov/.venv/bin/activate && pip instal
 
 ---
 
-## ▶️ 🇫🇷 Import automatique / 🇬🇧 Automatic import
+## ▶️ 🇫🇷 Import TVA automatique / 🇬🇧 Automated TVA Import
 
 ```bash
 python ~/DeGov/devat_import_all.py
@@ -18,17 +18,15 @@ python ~/DeGov/devat_import_all.py
 
 ---
 
-## 🔐 🇫🇷 Signature SHA256 / 🇬🇧 SHA256 signature
+## 🔐 SHA256 / Signature
 
 ```bash
 python ~/DeGov/sign_sha256.py
 ```
 
-➡️ Résultats dans / Results in: `DeSwitzerland/DeVAT/data/hashes/`
-
 ---
 
-## 🚀 🇫🇷 Publication automatique Git / 🇬🇧 Git auto push
+## 🚀 Publication Git automatique
 
 ```bash
 python ~/DeGov/auto_git_push.py
@@ -36,67 +34,79 @@ python ~/DeGov/auto_git_push.py
 
 ---
 
-## ⏱️ 🇫🇷 Cron job quotidien / 🇬🇧 Daily cron job
+## 🧩 Génération complète (tout-en-un)
 
 ```bash
-(crontab -l 2>/dev/null; echo "0 7 * * * cd ~/DeGov && ~/DeGov/.venv/bin/python devat_import_all.py && python ~/DeGov/auto_git_push.py") | crontab -
+python ~/DeGov/devat_publish_all.py
 ```
 
-Vérifier / Verify:
+---
 
+## 🧭 Menu interactif terminal
+
+```bash
+python ~/DeGov/devat_menu.py
+```
+
+---
+
+## 🕒 Cron automatique mensuel (chaque 7 à 8h)
+
+```bash
+(crontab -l 2>/dev/null; echo "0 8 7 * * cd ~/DeGov && ~/DeGov/.venv/bin/python devat_publish_all.py") | crontab -
+```
+
+Vérifier :
 ```bash
 crontab -l
 ```
 
 ---
 
-## 🌍 🇫🇷 Interface publique / 🇬🇧 Public interface
+## 🖱 Icône bureau macOS
+
+```bash
+echo '#!/bin/zsh
+cd ~/DeGov
+source ~/DeGov/.venv/bin/activate
+python devat_publish_all.py' > ~/Desktop/lancer_devat.command && chmod +x ~/Desktop/lancer_devat.command
+```
+
+---
+
+## 🧾 Génération ZIP TVA mensuels
+
+```bash
+python ~/DeGov/zip_monthly_archives.py
+```
+
+---
+
+## 🌍 Générer l’index public SHA256 (DApp)
+
+```bash
+python ~/DeGov/publish_sha256_in_dapp.py
+```
+
+---
+
+## ⛓ Préparer un manifeste IPFS
+
+```bash
+python ~/DeGov/prepare_ipfs_manifest.py
+```
+
+---
+
+## 🔗 Interface publique GitHub Pages
 
 [https://7red.github.io/DeGov/](https://7red.github.io/DeGov/)
 
 ---
 
-## 📂 🇫🇷 Structure du projet / 🇬🇧 Project structure
-
-```
-DeGov/
-├── DeSwitzerland/
-│   └── DeVAT/
-│       ├── data/
-│       │   ├── raw/         # 🇫🇷 fichiers bruts / 🇬🇧 raw Excel
-│       │   ├── processed/   # 🇫🇷 JSON extraits / 🇬🇧 extracted JSON
-│       │   └── hashes/      # 🇫🇷 signatures SHA256
-│       └── scripts/
-├── docs/
-│   ├── index.html
-│   └── processed/
-│   └── archives/
-├── devat_import_all.py
-├── sign_sha256.py
-└── auto_git_push.py
-```
-
----
-
-## 🧪 🇫🇷 Test manuel complet / 🇬🇧 Full manual test
+## 🧪 Test manuel complet
 
 ```bash
-cd ~/DeGov && ~/DeGov/.venv/bin/python devat_import_all.py && python sign_sha256.py && python auto_git_push.py
+cd ~/DeGov && ~/DeGov/.venv/bin/python devat_publish_all.py
 ```
-
----
-
-## 🧼 🇫🇷 Nettoyage / 🇬🇧 Cleanup
-
-```bash
-find . -name '__pycache__' -exec rm -rf {} +
-```
-
----
-
-## 🛟 🇫🇷 En cas de problème / 🇬🇧 Troubleshooting
-
-- Vérifier si le fichier est visible dans `/docs/processed/`
-- Forcer le rafraîchissement GitHub Pages : `Cmd + Shift + R`
-- Réexécuter manuellement le script d'import
 
